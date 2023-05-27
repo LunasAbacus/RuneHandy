@@ -1,7 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 #SingleInstance Force
-#Include WindHumanMouse.ahk
-#Include TimeUtils.ahk
+#Include ../Utils/WindHumanMouse.ahk
+#Include ../Utils/TimeUtils.ahk
 
 
 ^m::

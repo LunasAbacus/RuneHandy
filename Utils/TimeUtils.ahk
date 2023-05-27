@@ -2,7 +2,7 @@
 
 idlePercent := 0.02
 
-RandomSleep(min, max, shouldIdle)
+RandomSleep(min, max, shouldIdle:=False)
 {
 	waitTime := Random(min, max)
 	if (shouldIdle and Random() < idlePercent)
