@@ -22,6 +22,15 @@ ClearInventory()
     RandomSleep(500, 700)
 }
 
+ShiftClick()
+{
+    Send "{Shift Down}"
+	Sleep 75
+	click
+	Sleep 75
+	Send "{Shift Up}"
+}
+
 WithDrawItem(column, row, isShift:=False)
 {
     c1 := 135
@@ -34,7 +43,7 @@ WithDrawItem(column, row, isShift:=False)
 
     MoveMouse(x, y, 0.4)
     if (isShift) 
-        Send "+{Click}"
+        ShiftClick()
     else
         Click
     RandomSleep(150,300)
