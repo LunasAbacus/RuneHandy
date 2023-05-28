@@ -2,6 +2,8 @@
 #Include ../Utils/WindHumanMouse.ahk
 #Include ../Utils/TimeUtils.ahk
 
+global slot := 1
+
 CombineSlots(slotNumberA, slotNumberB, minWait:=10000)
 {
     ClickSlot(slotNumberA)
@@ -15,10 +17,12 @@ ClickSlot(slotNumber) {
     ; 875, 390 1,1
     ; 935, 445 2,2
 
-    row := slotNumber / 4
-    column := Mod(slotNumber, 4)
-    x := 875 + (column - 1) * 60
-    y := 390 + (row - 1) * 58
+    slotNumber -= 1
+
+    column := slotNumber // 4
+    row := Mod(slotNumber, 4)
+    x := 870 + row * 64
+    y := 380 + column * 61
 
     MoveMouse(x, y, 0.4)
 	Click
