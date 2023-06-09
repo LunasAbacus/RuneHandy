@@ -22,14 +22,17 @@ CoordMode "Mouse", "Client"   ; if you use this line in your scripts, uncomment 
 ;--------------------------------------------------------------------------------;
 ;*********************************************************************************
 
-MoveMouse(x, y, speed:= 0.6, RD:= ""){
-
+MoveMouse(x, y, speed:= 0.6, randomOffset:= false, relative:= false)
+{
     rxRan:= Random(-10,10)  ; here you can randomize your destination coordinates
     ryRan:= Random(-10,10)  ; so you don't need to randomize them in your main script
-    x:= x + rxRan         ; uncomment the beginning of these four lines
-    y:= y + ryRan         ; if you want random destinations
+	if (randomOffset)
+	{
+		x:= x + rxRan         ; uncomment the beginning of these four lines
+		y:= y + ryRan         ; if you want random destinations
+	}
 
-    if(RD == "RD")
+    if(relative)
 	{
         goRelative(x,y,speed)
     }

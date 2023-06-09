@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0
 #Include ../Utils/WindHumanMouse.ahk
 #Include ../Utils/TimeUtils.ahk
+#Include ../Utils/Input.ahk
 
 OpenBank()
 {
-    MoveMouse(120, 275, 0.4)
+    MoveMouse(120, 275, 0.4, true)
 	Click
 	RandomSleep(750, 1000, True)
 }
@@ -17,18 +18,9 @@ CloseBank()
 
 ClearInventory()
 {
-    MoveMouse(675, 510, 0.4)
+    MoveMouse(675, 510, 0.4, true)
     Click
     RandomSleep(500, 700)
-}
-
-ShiftClick()
-{
-    Send "{Shift Down}"
-	Sleep 75
-	click
-	Sleep 75
-	Send "{Shift Up}"
 }
 
 WithDrawItem(column, row, isShift:=False)
@@ -41,7 +33,7 @@ WithDrawItem(column, row, isShift:=False)
     x := c1 + cd*(column-1)
     y := r1 + rd*(row-1)
 
-    MoveMouse(x, y, 0.4)
+    MoveMouse(x, y, 0.4, true)
     if (isShift) 
         ShiftClick()
     else

@@ -8,7 +8,7 @@
 
 Alch()
 {
-    MoveMouse(1085, 510, 0.4)
+    MoveMouse(1085, 510, 0.4, true)
 	Click
 	RandomSleep(150, 200)
     ClickSlot(12)
@@ -18,7 +18,7 @@ Alch()
 CamelotTeleport()
 {
     ; 1045, 475
-    MoveMouse(1045, 475, 0.4)
+    MoveMouse(1045, 475, 0.4, true)
 	Click
     RandomSleep(100, 200)
 }

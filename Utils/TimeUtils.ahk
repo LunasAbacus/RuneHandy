@@ -1,6 +1,6 @@
 ﻿#Requires AutoHotkey v2.0
 
-idlePercent := 0.02
+idlePercent := 0.005
 
 RandomSleep(min, max, shouldIdle:=False)
 {

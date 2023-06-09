@@ -11,5 +11,5 @@ TeleAlch()
     Alch()
     RandomSleep(400,500)
     CamelotTeleport()
-    RandomSleep(2700, 3000, True)
+    RandomSleep(2700, 3000, False)
 }
