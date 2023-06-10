@@ -2,7 +2,6 @@
 #Include Scripts/TeleAlch.ahk
 #Include Scripts/JugsOfWine.ahk
 #Include Scripts/OakLarders.ahk
-#HotIf WinActive("ahk_exe RuneLite.exe")
 
 scripts := Map()
 scripts["CookingWine"] := CookWine
@@ -17,8 +16,7 @@ LB.OnEvent("DoubleClick", RunScript)
 for k, v in scripts
     LB.Add([k])
 
-;MyGui.Add("Button", "Default", "OK").OnEvent("Click", LaunchFile)
-
+MyGui.Add("Button", "Default", "OK").OnEvent("Click", RunScript)
 MyGui.Add("Progress", "w200 h20 vMyProgress", 0)
 
 MyGui.Show()
@@ -26,7 +24,7 @@ MyGui.Show()
 ^s::
 {
     ; RunScript(TeleAlch)
-    ; RunScript(OakLarders)
+    OakLarders()
 }
 
 RunScript(*) {
@@ -34,8 +32,9 @@ RunScript(*) {
     WinActivate "ahk_exe RuneLite.exe"
 
     script:= scripts[LB.Text]
-    totalLoops := 5
+    totalLoops := 25
     currentLoop := 0
+    MyGui["MyProgress"].Value := 0
 
     while (currentLoop <= totalLoops)
     {
@@ -45,6 +44,5 @@ RunScript(*) {
     }
     MsgBox("Script completed.")
 }
-
 
 Pause::Pause
