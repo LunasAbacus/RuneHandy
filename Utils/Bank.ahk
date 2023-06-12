@@ -10,6 +10,24 @@ OpenBank()
 	RandomSleep(750, 1000, True)
 }
 
+OpenBankCoord(xPos, yPos)
+{
+    MoveMouse(xPos, yPos, 0.4, true)
+	Click
+	RandomSleep(750, 1000, True)
+}
+
+OpenBankImage(image)
+{
+    if ClickImage(10, 10, image, false, false)
+        RandomSleep(750, 1000, True)
+    else
+    {
+        MsgBox("Could not find bank image")
+        Pause
+    }
+}
+
 CloseBank()
 {
     Send "{Escape}"
