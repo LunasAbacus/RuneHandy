@@ -10,7 +10,7 @@
 ShiloSmelt()
 {
     ; Bank
-    OpenBankImage("./Resources/25x25x000000.png")
+    OpenBankImage("./Resources/15x15x000000.png")
     RandomSleep(3500, 3900)
     ClearInventory()
     WithdrawItemByImage("*5 ./Resources/items/gold_ore.png", true)
@@ -24,7 +24,7 @@ ShiloSmelt()
 
 OpenSmelter()
 {
-    if ClickImage(30, 30, "./Resources/20x20xFFFF00.png", false, false)
+    if ClickImage(30, 30, "./Resources/15x15xFFFF00.png", false, false)
         RandomSleep(3700, 4100)
     else
         MsgBox("Could not find smelter")
