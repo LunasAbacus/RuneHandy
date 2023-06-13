@@ -13,7 +13,7 @@ ShiloSmelt()
     OpenBankImage("./Resources/25x25x000000.png")
     RandomSleep(3500, 3900)
     ClearInventory()
-    WithDrawItem(3, 2, true)
+    WithdrawItemByImage("*5 ./Resources/items/gold_ore.png", true)
     CloseBank()
 
     ; Smelt

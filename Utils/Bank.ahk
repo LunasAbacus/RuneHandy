@@ -2,6 +2,7 @@
 #Include ../Utils/WindHumanMouse.ahk
 #Include ../Utils/TimeUtils.ahk
 #Include ../Utils/Input.ahk
+#Include ../Utils/ErrorHandling.ahk
 
 OpenBank()
 {
@@ -22,10 +23,7 @@ OpenBankImage(image)
     if ClickImage(10, 10, image, false, false)
         RandomSleep(750, 1000, True)
     else
-    {
-        MsgBox("Could not find bank image")
-        Pause
-    }
+        OnError("Could not find bank image")
 }
 
 CloseBank()
@@ -36,9 +34,11 @@ CloseBank()
 
 ClearInventory()
 {
-    MoveMouse(675, 510, 0.4, true)
-    Click
-    RandomSleep(500, 700)
+    if ClickImage(10, 10, "*5 ./Resources/ui/bank_deposit.png", false, false)
+        RandomSleep(500, 700)
+    else
+        OnError("Could not find bank deposit")
+    
 }
 
 WithDrawItem(column, row, isShift:=False)
@@ -57,4 +57,12 @@ WithDrawItem(column, row, isShift:=False)
     else
         Click
     RandomSleep(150,300)
+}
+
+WithdrawItemByImage(image, isShift:=false)
+{
+    if ClickImage(10, 10, image, false, isShift)
+        RandomSleep(500, 700)
+    else
+        OnError("Could not find image: " . image)
 }
