@@ -34,6 +34,7 @@ RunScript(*) {
     totalLoops := Saved.NumberOfRuns
     currentLoop := 0
     ;MyGui["MyProgress"].Value := 0
+    RandomSleep(5000,6000)
 
     while (currentLoop <= totalLoops)
     {
