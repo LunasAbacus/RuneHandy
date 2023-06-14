@@ -20,7 +20,7 @@ OpenBankCoord(xPos, yPos)
 
 OpenBankImage(image)
 {
-    if ClickImage(10, 10, image, false, false)
+    if ClickImage(10, 10, image, false, false, false)
         RandomSleep(750, 1000, True)
     else
         OnError("Could not find bank image")
@@ -34,7 +34,7 @@ CloseBank()
 
 ClearInventory()
 {
-    if ClickImage(10, 10, "*5 ./Resources/ui/bank_deposit.png", false, false)
+    if ClickImage(10, 10, "*15 ./Resources/ui/bank_deposit.png", false, false)
         RandomSleep(500, 700)
     else
         OnError("Could not find bank deposit")
@@ -61,7 +61,7 @@ WithDrawItem(column, row, isShift:=False)
 
 WithdrawItemByImage(image, isShift:=false)
 {
-    if ClickImage(10, 10, image, false, isShift)
+    if ClickImage(5, 5, image, false, isShift)
         RandomSleep(500, 700)
     else
         OnError("Could not find image: " . image)
