@@ -24,8 +24,8 @@ CoordMode "Mouse", "Client"   ; if you use this line in your scripts, uncomment 
 
 MoveMouse(x, y, speed:= 0.6, randomOffset:= false, relative:= false)
 {
-    rxRan:= Random(-10,10)  ; here you can randomize your destination coordinates
-    ryRan:= Random(-10,10)  ; so you don't need to randomize them in your main script
+    rxRan:= Random(-5,5)  ; here you can randomize your destination coordinates
+    ryRan:= Random(-5,5)  ; so you don't need to randomize them in your main script
 	if (randomOffset)
 	{
 		x:= x + rxRan         ; uncomment the beginning of these four lines
@@ -95,7 +95,10 @@ Loop{
 		step:= Hypot(xs - oldX, ys - oldY)
 		c:= sleepsArray.Length
 		if(i > c){
-			lastSleeps:= Round(sleepsArray[c])
+			if (c==0)
+				lastSleeps:=1
+			else
+				lastSleeps:= Round(sleepsArray[c])
 			w := Random(lastSleeps, lastSleeps+1)
 			wait:= Max(Round(abs(w)),1)
 			Sleep(wait)

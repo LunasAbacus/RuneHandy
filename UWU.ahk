@@ -40,7 +40,7 @@ RunScript(*) {
     ;MyGui["MyProgress"].Value := 0
     RandomSleep(2000,2500)
 
-    while (currentLoop <= totalLoops)
+    while (currentLoop < totalLoops)
     {
         ; Set focus to runelite
         WinActivate "ahk_exe RuneLite.exe"
@@ -63,4 +63,4 @@ Quit(*) {
     OpenBankImage("./Resources/15x15x000000.png")
 }
 
-Pause::Pause
+Pause::Pause -1

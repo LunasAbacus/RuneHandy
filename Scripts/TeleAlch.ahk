@@ -8,8 +8,8 @@
 
 TeleAlch()
 {
-    Alch()
-    RandomSleep(400,500)
+    Alch("*25 ./Resources/items/runeArrows.png")
+    OpenSpellbook()
     CamelotTeleport()
-    RandomSleep(2700, 3000, False)
+    RandomSleep(2300, 2500, False)
 }

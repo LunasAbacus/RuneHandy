@@ -22,3 +22,11 @@ ClickImage(offSetx, offSety, imagePath, rightClick:=false, isShift:=false, offse
         return false
     }
 }
+
+SimpleImageClick(imagePath, minSleep)
+{
+    if ClickImage(7, 7, imagePath, false, false, true)
+        RandomSleep(minSleep, 1.1 * minSleep)
+    else
+        OnError("Could not find image: " . imagePath)
+}

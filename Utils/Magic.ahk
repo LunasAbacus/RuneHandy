@@ -6,19 +6,19 @@
 ; alch
 ; 1085, 510
 
-Alch()
+OpenSpellbook()
 {
-    MoveMouse(1085, 510, 0.4, true)
-	Click
-	RandomSleep(150, 200)
-    ClickSlot(12)
-    RandomSleep(150, 200)
+    Send "{F4}"
+    RandomSleep(100, 150)
+}
+
+Alch(item)
+{
+    SimpleImageClick("*25 ./Resources/magic/hialch.png", 200)
+    SimpleImageClick(item, 200)
 }
 
 CamelotTeleport()
 {
-    ; 1045, 475
-    MoveMouse(1045, 475, 0.4, true)
-	Click
-    RandomSleep(100, 200)
+    SimpleImageClick("*25 ./Resources/magic/camelot.png", 200)
 }
