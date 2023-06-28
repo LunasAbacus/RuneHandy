@@ -3,35 +3,35 @@
 #Include ../Utils/TimeUtils.ahk
 #Include ../Utils/Input.ahk
 
-class Region
-{
-    __New(x, y, w, h)
-    {
-        this.x = x
-        this.y = y
-        this.w = w
-        this.h = h
-    }
+; class Region
+; {
+;     __New(x, y, w, h)
+;     {
+;         this.x = x
+;         this.y = y
+;         this.w = w
+;         this.h = h
+;     }
 
-    x => this.x
-    y => this.y
-    w => this.w
-    h => this.h
-}
+;     x => this.x
+;     y => this.y
+;     w => this.w
+;     h => this.h
+; }
 
-global inventoryRegion := Region(10, 10, 10, 10)
-global bankRegion := Region(10, 10, 10, 10)
-global textRegion := Region(10, 10, 10, 10)
+; global inventoryRegion := Region(10, 10, 10, 10)
+; global bankRegion := Region(10, 10, 10, 10)
+; global textRegion := Region(10, 10, 10, 10)
 
-ClickImageInRagion(region)
-{
+; ClickImageInRagion(region)
+; {
 
-}
+; }
 
 
 ClickImage(offSetx, offSety, imagePath, rightClick:=false, isShift:=false, offset:=true)
 {
-    if ImageSearch(&FoundX, &FoundY, 0, 0, 1150, 800, imagePath)
+    if ImageSearch(&FoundX, &FoundY, 0, 0, 750, 525, imagePath)
     {
         ; MsgBox "The icon was found at " FoundX "x" FoundY
         MoveMouse(FoundX + offSetx, FoundY + offSety, 0.4, offset)

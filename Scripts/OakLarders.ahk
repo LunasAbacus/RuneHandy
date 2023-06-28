@@ -56,7 +56,7 @@ DemonButler()
 
 RemoveLarder(firstTime:=false)
 {
-    ClickImage(55, 65, "./Resources/25x25x000000.png", true, false)
+    ClickImage(20, 30, "./Resources/25x25x000000.png", true, false)
     SelectMenuItem(4)
     if (firstTime)
         RandomSleep(2000, 2500)
@@ -68,7 +68,7 @@ RemoveLarder(firstTime:=false)
 
 BuildLarder()
 {
-    ClickImage(55, 65, "./Resources/25x25x000000.png", true, false)
+    ClickImage(20, 30, "./Resources/25x25x000000.png", true, false)
     SelectMenuItem(3)
     RandomSleep(800, 900)
     Send "2"
@@ -78,6 +78,6 @@ BuildLarder()
 ^b::
 {
     ; BuildLarder()
-    ; RemoveLarder()
-    OakLarders()
+    RemoveLarder()
+    ; OakLarders()
 }

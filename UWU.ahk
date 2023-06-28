@@ -23,7 +23,7 @@ scripts := Map()
 scripts["CookingWine"] := CookWine
 scripts["TeleAlch"] := TeleAlch
 scripts["Larders"] := OakLarders
-scripts["ShiloSmelt"] := ShiloSmelt
+; scripts["ShiloSmelt"] := ShiloSmelt
 for k, v in scripts
     LB.Add([k])
 

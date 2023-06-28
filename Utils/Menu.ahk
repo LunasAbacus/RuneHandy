@@ -13,7 +13,7 @@ SelectMenuItem(itemNumber)
     
     ; Get current mouse pos
     ; MoveMouse x, y+40+(itemNumber-1)*22
-    offSety := 40 + (itemNumber-1) * 22
+    offSety := 26 + (itemNumber-1) * 15
     MouseGetPos &xpos, &ypos 
     MoveMouse(xpos, ypos + offSety, 0.4)
     Click
