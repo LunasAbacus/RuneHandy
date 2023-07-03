@@ -3,12 +3,12 @@
 #Include ../Utils/TimeUtils.ahk
 #Include ../Utils/Input.ahk
 #Include ../Utils/ErrorHandling.ahk
+#Include ../DataTypes/Region.ahk
 
 OpenBank()
 {
-    MoveMouse(120, 275, 0.4, true)
-	Click
-	RandomSleep(750, 1000, True)
+    ClickImageWithConfirmationRetry("*15 ./Resources/butler.png", "*15 ./Resources/ui/bank_confirmation.png", 750, gameRegion)
+    RandomSleep(50,100, true)
 }
 
 OpenBankCoord(xPos, yPos)
@@ -29,7 +29,7 @@ OpenBankImage(image)
 CloseBank()
 {
     Send "{Escape}"
-	RandomSleep(400, 700)
+	RandomSleep(500, 700)
 }
 
 ClearInventory()
@@ -41,9 +41,17 @@ ClearInventory()
     
 }
 
+DepositItem(item)
+{
+    if ClickImage(10, 10, "*15 ./Resources/ui/bank_deposit.png", false, false)
+        RandomSleep(500, 700)
+    else
+        OnError("Could not find bank deposit")
+}
+
 WithDrawItem(column, row, isShift:=False)
 {
-    c1 := 135
+    c1 := 
     r1 := 195
     cd := 73
     rd := 53

@@ -2,14 +2,11 @@
 #SingleInstance Force
 #Include ../Utils/WindHumanMouse.ahk
 #Include ../Utils/TimeUtils.ahk
+#Include ../Utils/Bank.ahk
+#Include ../Utils/ImageClick.ahk
+#Include ../Utils/Inventory.ahk
 
 
-^m::
-{
-	Send "{space}"
-}
-
-#HotIf WinActive("ahk_exe RuneLite.exe")
 Numpad0::
 {
 	; Open Bank

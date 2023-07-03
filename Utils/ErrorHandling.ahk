@@ -2,6 +2,6 @@
 
 OnError(message) {
 	SoundPlay "*-1"
-	MsgBox(message)
+	MsgBox("" . message)
 	Pause
 }

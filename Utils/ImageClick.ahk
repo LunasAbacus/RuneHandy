@@ -3,32 +3,6 @@
 #Include ../Utils/TimeUtils.ahk
 #Include ../Utils/Input.ahk
 
-; class Region
-; {
-;     __New(x, y, w, h)
-;     {
-;         this.x = x
-;         this.y = y
-;         this.w = w
-;         this.h = h
-;     }
-
-;     x => this.x
-;     y => this.y
-;     w => this.w
-;     h => this.h
-; }
-
-; global inventoryRegion := Region(10, 10, 10, 10)
-; global bankRegion := Region(10, 10, 10, 10)
-; global textRegion := Region(10, 10, 10, 10)
-
-; ClickImageInRagion(region)
-; {
-
-; }
-
-
 ClickImage(offSetx, offSety, imagePath, rightClick:=false, isShift:=false, offset:=true)
 {
     if ImageSearch(&FoundX, &FoundY, 0, 0, 750, 525, imagePath)
@@ -44,9 +18,26 @@ ClickImage(offSetx, offSety, imagePath, rightClick:=false, isShift:=false, offse
         return true
     }
     else
-    {
         return false
+}
+
+ClickImageInRegion(image, region, rightClick:=false, isShift:=false, offset:=true)
+{
+    ; if ImageSearch(&FoundX, &FoundY, region.x, region.y, region.w, region.y, image)
+    if ImageSearch(&FoundX, &FoundY, 0, 0, 800, 500, image)
+    {
+        ; MsgBox "The icon was found at " FoundX "x" FoundY
+        MoveMouse(FoundX, FoundY, 0.5, offset)
+        if (isShift) 
+            ShiftClick()
+        else if (rightClick)
+            Click "Right"
+        else
+            Click
+        return true
     }
+    else
+        return false
 }
 
 SimpleImageClick(imagePath, minSleep)
@@ -55,4 +46,26 @@ SimpleImageClick(imagePath, minSleep)
         RandomSleep(minSleep, 1.1 * minSleep)
     else
         OnError("Could not find image: " . imagePath)
+}
+
+SimpleImageShiftClick(imagePath, minSleep)
+{
+    if ClickImage(7, 7, imagePath, false, true, true)
+        RandomSleep(minSleep, 1.1 * minSleep)
+    else
+        OnError("Could not find image: " . imagePath)
+}
+
+ClickImageWithConfirmationRetry(image, confirmationImage, minWait, region, tryNumber:=1)
+{
+    if ClickImageInRegion(image, region) {
+        RandomSleep(minWait, 1.1 * minWait)
+        ; if not ImageSearch(&FoundX, &FoundY, region.x, region.y, region.w, region.y, confirmationImage)
+        if not ImageSearch(&FoundX, &FoundY, 0, 0, 800, 500, confirmationImage)
+            ClickImageWithConfirmationRetry(image, confirmationImage, minWait, region, 2)
+    } else if (tryNumber > 1) {
+        OnError("Could not find image: " . image)
+    } else {
+        ClickImageWithConfirmationRetry(image, confirmationImage, minWait, region, 2)
+    }
 }
