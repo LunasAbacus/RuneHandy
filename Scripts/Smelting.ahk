@@ -7,6 +7,62 @@
 #Include ../Utils/Menu.ahk
 #Include ../Utils/Bank.ahk
 
+class SmeltingStateMachine
+{
+	primary := ""
+	secondary := ""
+	smeltWaitTime := 0
+	iterations := 0
+	estimatedTimePerIteration := 0
+
+	currentState := ""
+
+    __New(primary, secondary, finished, smeltWaitTime)
+    {
+        this.primary := primary
+		this.secondary := secondary
+        this.finished := finished
+		this.smeltWaitTime := smeltWaitTime
+
+		this.estimatedTimePerIteration := smeltWaitTime + 5000
+		this.currentState := this.WithdrawIngredients
+    }
+
+	IterationNumber()
+    {
+        return this.iterations
+    }
+
+	Run() {
+		this.currentState.Call(this)
+	}
+
+	WithdrawIngredients() {
+		OpenBankTile(4000)
+
+		; ClearInventory()
+        DepositItem(this.finished)
+
+		WithdrawItemByImage(this.primary, true)
+
+		if (this.secondary)
+		    WithdrawItemByImage(this.secondary, true)
+		
+		CloseBank()
+
+		this.currentState := this.Smelt
+	}
+
+	Smelt() {
+        SimpleImageClick("*15 ./Resources/items/sapphire.png", 4000)
+        Send "{Space}"
+        RandomSleep(this.smeltWaitTime, this.smeltWaitTime * 1.1, true)
+		
+		this.currentState := this.WithdrawIngredients
+	}
+
+}
+
 ShiloSmeltGold()
 {
     ; Bank

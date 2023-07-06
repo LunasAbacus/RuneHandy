@@ -7,8 +7,13 @@
 
 OpenBank()
 {
-    ClickImageWithConfirmationRetry("*15 ./Resources/butler.png", "*15 ./Resources/ui/bank_confirmation.png", 750, gameRegion)
-    RandomSleep(50,100, true)
+    ClickImageWithConfirmationRetry("*15 ./Resources/butler.png", "*15 ./Resources/ui/bank_confirmation.png", 800, gameRegion)
+}
+
+OpenBankTile(sleepMin)
+{
+    ClickImage(0, 0, "*15 ./Resources/15x15x000000.png", false, false)
+    RandomSleep(sleepMin, sleepMin * 1.1, true)
 }
 
 OpenBankCoord(xPos, yPos)
@@ -43,10 +48,10 @@ ClearInventory()
 
 DepositItem(item)
 {
-    if ClickImage(10, 10, "*15 ./Resources/ui/bank_deposit.png", false, false)
-        RandomSleep(500, 700)
+    if ClickImage(10, 10, item, false, true)
+        RandomSleep(300, 400)
     else
-        OnError("Could not find bank deposit")
+        OnError("Could not find item to deposit")
 }
 
 WithDrawItem(column, row, isShift:=False)

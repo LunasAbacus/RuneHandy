@@ -5,6 +5,7 @@
 #Include Scripts/Smelting.ahk
 #Include Scripts/Potions.ahk
 #Include Scripts/CleanHerbs.ahk
+#Include Scripts/ChinkGems.ahk
 
 #Include Utils/Bank.ahk
 
@@ -26,6 +27,11 @@ scripts["CookingWine"] := CookWine
 scripts["TeleAlch"] := TeleAlch
 scripts["Larders"] := OakLarders
 
+chinkGems := ChinkGemsStateMachine("*15 ./Resources/items/chisel.png",
+                                   "*15 ./Resources/items/raw_sapphire.png",
+                                   "*15 ./Resources/items/sapphire.png")
+scripts["Gems"] := chinkGems.Run
+
 testClean := HerbCleanStateMachine("*15 ./Resources/items/dirty_kwuarm.png")
 scripts["CleanHerbs"] := testClean.Run
 
@@ -35,6 +41,13 @@ testPot := PotionStateMachine("*15 ./Resources/items/vial.png",
                               "*15 ./Resources/items/limpwurt.png", 
                               10000, 21000)
 scripts["MakePots"] := testPot.Run
+
+smeltJewelery := SmeltingStateMachine("*15 ./Resources/items/gold_bar.png",
+                                      "*15 ./Resources/items/sapphire.png",
+                                      "*15 ./Resources/items/sapphire_necklace.png",
+                                      24000
+                                    )
+scripts["SmeltJewelery"] := smeltJewelery.Run
 
 ; scripts["ShiloSmelt"] := ShiloSmelt
 for k, v in scripts
@@ -57,7 +70,7 @@ RunScript(*) {
     {
         ; Set focus to runelite
         WinActivate "RuneLite - Lunas Butkus"
-        script.Call(testPot)
+        script.Call(smeltJewelery)
         currentLoop := testPot.IterationNumber()
         ;MyGui["MyProgress"].Value := currentLoop / totalLoops * 100
     }
