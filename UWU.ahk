@@ -49,7 +49,13 @@ smeltJewelery := SmeltingStateMachine("*15 ./Resources/items/gold_bar.png",
                                     )
 scripts["SmeltJewelery"] := smeltJewelery.Run
 
-; scripts["ShiloSmelt"] := ShiloSmelt
+smeltGold := SmeltingStateMachine("*15 ./Resources/items/gold_ore.png",
+                                      "",
+                                      "*15 ./Resources/items/gold_bar.png",
+                                      86000
+                                    )
+scripts["SmeltGold"] := smeltGold.Run
+
 for k, v in scripts
     LB.Add([k])
 
@@ -70,7 +76,7 @@ RunScript(*) {
     {
         ; Set focus to runelite
         WinActivate "RuneLite - Lunas Butkus"
-        script.Call(smeltJewelery)
+        script.Call(smeltGold)
         currentLoop := testPot.IterationNumber()
         ;MyGui["MyProgress"].Value := currentLoop / totalLoops * 100
     }

@@ -32,7 +32,7 @@ class HerbCleanStateMachine
 	}
 
 	WithdrawHerbs() {
-		OpenBank()
+		OpenBank(800)
 		ClearInventory()
 
 		; Withdraw herb

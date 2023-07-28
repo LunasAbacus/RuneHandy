@@ -7,7 +7,7 @@
 
 CookWine()
 {
-    OpenBank()
+    OpenBank(800)
     ClearInventory()
     WithDrawItem(2, 2, True)
     WithDrawItem(4, 1, True)

@@ -5,9 +5,11 @@
 #Include ../Utils/ErrorHandling.ahk
 #Include ../DataTypes/Region.ahk
 
-OpenBank()
+OpenBank(sleepMin)
 {
-    ClickImageWithConfirmationRetry("*15 ./Resources/butler.png", "*15 ./Resources/ui/bank_confirmation.png", 800, gameRegion)
+    ; ClickImageWithConfirmationRetry("*5 ./Resources/bank.png", "*15 ./Resources/ui/bank_confirmation.png", sleepMin, gameRegion)
+    ClickImage(0, 0, "*5 ./Resources/bank.png")
+    RandomSleep(sleepMin, sleepMin * 1.1, true)
 }
 
 OpenBankTile(sleepMin)

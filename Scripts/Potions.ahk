@@ -43,7 +43,7 @@ class PotionStateMachine
 
 	WithdrawUnfIngredients() {
 		; MsgBox("WithdrawUnfIngredients")
-		OpenBank()
+		OpenBank(800)
 		ClearInventory()
 
 		; Withdraw vial
@@ -59,7 +59,7 @@ class PotionStateMachine
 
 	WithdrawPotIngredients() {
 		; MsgBox("WithdrawPotIngredients")
-		OpenBank()
+		OpenBank(800)
 
 		; Withdraw Secondary
 		WithdrawItemByImage(this.secondary, true)

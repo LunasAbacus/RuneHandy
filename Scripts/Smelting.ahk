@@ -38,7 +38,7 @@ class SmeltingStateMachine
 	}
 
 	WithdrawIngredients() {
-		OpenBankTile(4000)
+		OpenBank(4000)
 
 		; ClearInventory()
         DepositItem(this.finished)
@@ -58,6 +58,7 @@ class SmeltingStateMachine
         Send "{Space}"
         RandomSleep(this.smeltWaitTime, this.smeltWaitTime * 1.1, true)
 		
+        this.iterations++
 		this.currentState := this.WithdrawIngredients
 	}
 

@@ -35,7 +35,7 @@ class ChinkGemsStateMachine
 	}
 
 	WithdrawGems() {
-		OpenBank()
+		OpenBank(800)
 
 		; Deposit cut gems
 		SimpleImageShiftClick(this.cutGem, 1000)
