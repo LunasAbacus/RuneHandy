@@ -6,6 +6,7 @@
 #Include Scripts/Potions.ahk
 #Include Scripts/CleanHerbs.ahk
 #Include Scripts/ChinkGems.ahk
+#Include Scripts/NMZ.ahk
 
 #Include Utils/Bank.ahk
 
@@ -56,6 +57,9 @@ smeltGold := SmeltingStateMachine("*15 ./Resources/items/gold_ore.png",
                                     )
 scripts["SmeltGold"] := smeltGold.Run
 
+nmz := NightmareZone(300)
+scripts["NMZ"] := nmz.Run
+
 for k, v in scripts
     LB.Add([k])
 
@@ -76,8 +80,8 @@ RunScript(*) {
     {
         ; Set focus to runelite
         WinActivate "RuneLite - Lunas Butkus"
-        script.Call(smeltGold)
-        currentLoop := testPot.IterationNumber()
+        script.Call(nmz)
+        currentLoop := nmz.IterationNumber()
         ;MyGui["MyProgress"].Value := currentLoop / totalLoops * 100
     }
     MsgBox("Script completed.")
