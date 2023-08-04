@@ -58,6 +58,7 @@ class NightmareZone
         ; TODO find a more respondant way to check
         ; TODO do for other combat styles
         return ImageSearch(&FoundX, &FoundY, 0, 0, 750, 525, "*15 *TransBlack ./Resources/ui/AttackXpIconTrans.png")
+            || ImageSearch(&FoundX, &FoundY, 0, 0, 750, 525, "*15 *TransBlack ./Resources/ui/StrengthXpIconTrans.png")
     }
 
     FlickPrayer()
