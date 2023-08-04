@@ -13,6 +13,8 @@ class NightmareZone
     currentState := ""
     currentTime := 0
     prayerFlickCounter := 0
+    superCombatCounter := 0
+    absorptionCounter := 0
 
     __New(timeLimit)
     {
@@ -46,6 +48,16 @@ class NightmareZone
             this.FlickPrayer()
         }
 
+        ; drink combat every 14 minutes
+        if this.superCombatCounter > 14 * 60 {
+            this.DrinkSuperCombat()
+        }
+
+        ; drink absorption every 15 minutes
+        if this.absorptionCounter > 15 * 60 {
+            this.DrinkAbsorption()
+        }
+
         ; check if in combat
         if not this.IsInCombat()
             this.currentState := this.Attack
@@ -69,28 +81,57 @@ class NightmareZone
         Click
         Sleep(100)
         Click
-
+        
+        Sleep(200)
         this.prayerFlickCounter := 0
+    }
+
+    DrinkSuperCombat()
+    {
+        if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Super_combat_potion(1).png", false, false)
+            this.superCombatCounter := 0    
+        else if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Super_combat_potion(2).png", false, false)
+            this.superCombatCounter := 0    
+        else if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Super_combat_potion(3).png", false, false)
+            this.superCombatCounter := 0    
+        else if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Super_combat_potion(4).png", false, false)
+            this.superCombatCounter := 0    
+        else
+            this.superCombatCounter := -100000
+
+        Sleep(200)
+    }
+
+    DrinkAbsorption()
+    {
+        if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Absorption_(1).png", false, false)
+            this.absorptionCounter := 0    
+        else if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Absorption_(2).png", false, false)
+            this.absorptionCounter := 0    
+        else if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Absorption_(3).png", false, false)
+            this.absorptionCounter := 0    
+        else if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Absorption_(4).png", false, false)
+            this.absorptionCounter := 0    
+        else
+            this.absorptionCounter := -100000
+
+        Sleep(200)
     }
 
     Wait()
     {
-        Sleep(2000)
-        this.currentTime++
-        this.currentTime++
-        this.prayerFlickCounter++
-        this.prayerFlickCounter++
+        sleepTime := 2
+        Sleep(sleepTime * 1000)
+        this.currentTime := this.currentTime + sleepTime
+        this.prayerFlickCounter := this.prayerFlickCounter + sleepTime
+        this.superCombatCounter := this.superCombatCounter + sleepTime
+        this.absorptionCounter := this.absorptionCounter + sleepTime
     }
 }
 
 nmz := NightmareZone(500)
 
-^p::
+^d::
 {
-    nmz.FlickPrayer()
-}
-
-^a::
-{
-    ClickImage(5, 5, "../Resources/butler.png", false, false)
+    nmz.DrinkSuperCombat()
 }
