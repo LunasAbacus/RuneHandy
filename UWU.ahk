@@ -80,8 +80,10 @@ RunScript(*) {
     {
         ; Set focus to runelite
         WinActivate "RuneLite - Lunas Butkus"
-        script.Call(nmz)
-        currentLoop := nmz.IterationNumber()
+        ;script.Call(nmz)
+        script.Call()
+        currentLoop++
+        ;currentLoop := nmz.IterationNumber()
         ;MyGui["MyProgress"].Value := currentLoop / totalLoops * 100
     }
     MsgBox("Script completed.")

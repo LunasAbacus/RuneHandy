@@ -20,6 +20,8 @@ class NightmareZone
     {
         this.timeLimit := timeLimit
         this.currentState := this.Attack
+        this.absorptionCounter := 10 * 60
+        this.superCombatCounter := 14 * 60
     }
 
 	IterationNumber()
@@ -54,7 +56,7 @@ class NightmareZone
         }
 
         ; drink absorption every 15 minutes
-        if this.absorptionCounter > 15 * 60 {
+        if this.absorptionCounter > 7 * 60 {
             this.DrinkAbsorption()
         }
 
@@ -97,7 +99,10 @@ class NightmareZone
         else if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Super_combat_potion(4).png", false, false)
             this.superCombatCounter := 0    
         else
+        {
             this.superCombatCounter := -100000
+            MsgBox("Could find super combat potion")
+        }
 
         Sleep(200)
     }
@@ -113,7 +118,10 @@ class NightmareZone
         else if ClickImage(5, 5, "*45 *TransBlack ./Resources/items/potions/Absorption_(4).png", false, false)
             this.absorptionCounter := 0    
         else
+        {
             this.absorptionCounter := -100000
+            MsgBox("Could find absorption potion")
+        }
 
         Sleep(200)
     }

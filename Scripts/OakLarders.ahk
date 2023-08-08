@@ -41,13 +41,13 @@ OakLarders()
 DemonButler()
 {
     isButlerNextTile:= false
-    if ClickImage(15, 15, "./Resources/butler.png", false, false)
+    if ClickImage(15, 15, "*15 ./Resources/butler.png", false, false)
     {
         ifButlerNextTile:= true
         RandomSleep(900, 1000)
     } else
     {
-        ClickImage(35, 50, "./Resources/20x20xFFFF00.png", false, false)
+        ClickImage(20, 30, "*15 ./Resources/20x20xFFFF00.png", false, false)
         RandomSleep(3700, 4000)
     }
     Send "1"
@@ -56,20 +56,24 @@ DemonButler()
 
 RemoveLarder(firstTime:=false)
 {
-    ClickImage(20, 30, "./Resources/25x25x000000.png", true, false)
-    SelectMenuItem(4)
+    ClickImage(25, 35, "./Resources/25x25x000000.png", true, false)
+    ;SelectMenuItem(4)
+    Sleep(300)
+    ClickImage(2, 2, "*15 ./Resources/ui/Remove.png", false, false)
     if (firstTime)
         RandomSleep(2000, 2500)
 
-    RandomSleep(850, 950)
+    RandomSleep(1100, 1300)
     Send "1"
     RandomSleep(1600, 2000)
 }
 
 BuildLarder()
 {
-    ClickImage(20, 30, "./Resources/25x25x000000.png", true, false)
-    SelectMenuItem(3)
+    ClickImage(25, 35, "./Resources/25x25x000000.png", true, false)
+    ;SelectMenuItem(3)
+    Sleep(300)
+    ClickImage(2, 2, "*15 ./Resources/ui/Build.png", false, false)
     RandomSleep(900, 1000)
     Send "2"
     RandomSleep(2000, 2500)
