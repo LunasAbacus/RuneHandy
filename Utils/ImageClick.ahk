@@ -69,3 +69,25 @@ ClickImageWithConfirmationRetry(image, confirmationImage, minWait, region, tryNu
         ClickImageWithConfirmationRetry(image, confirmationImage, minWait, region, 2)
     }
 }
+
+ConfirmImage(image) {
+    return ImageSearch(&FoundX, &FoundY, 0, 0, 800, 500, image)
+}
+
+; New methods to make life easier
+
+WaitForImage(image, timeout, pollRate := 300) {
+    timeWaited := 0
+    while timeWaited < timeout {
+        if ConfirmImage(image) {
+            return true
+        } else {
+            Sleep(pollRate)
+            timeWaited := timeWaited + pollRate
+        }
+    }
+}
+
+WaitToClickImage(image, timeout, pollRate) {
+
+}
