@@ -55,8 +55,8 @@ class NightmareZone
             this.DrinkSuperCombat()
         }
 
-        ; drink absorption every 15 minutes
-        if this.absorptionCounter > 7 * 60 {
+        ; drink absorption every 5 minutes
+        if this.absorptionCounter > 5 * 60 {
             this.DrinkAbsorption()
         }
 
