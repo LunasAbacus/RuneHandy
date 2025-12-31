@@ -37,27 +37,24 @@ ClickSlot(slotNumber, shift:=False) {
 
 DropInventory() {
     i := 1
-    loop 28
+    Send "{Shift Down}"
+    loop 8
     {
         ClickSlot(i++)
-        RandomSleep(100,150)
     }
+    Send "{Shift Up}"
 }
 
-;d::
-;{
-;    DropInventory()
-;}
-
-
+; TODO Nate improve this to not use hardcoded?
+; client first position 870 , 345
 SlotPosition(slotNumber)
 {
     slotNumber--
 
     column := slotNumber // 4
     row := Mod(slotNumber, 4)
-    x := 570 + row * 41
-    y := 220 + column * 38
+    x := 870 + row * 60
+    y := 345 + column * 51
 
     return {x:x, y:y}
 }
