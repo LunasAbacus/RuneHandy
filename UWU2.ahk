@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0
-#Include Scripts/OakLardersAdvanced.ahk
+#Include Scripts/PowerMiner.ahk
 
 CoordMode "Pixel", "Client"
 
@@ -16,8 +16,8 @@ MyGui.OnEvent("Escape", Quit)
 ; Scripts list
 scripts := Map()
 
-larders := OakLardersAdvanced()
-scripts["Larders"] := larders
+powerMiner := MiningStateMachine()
+scripts["miner"] := powerMiner
 
 for k, v in scripts
     LB.Add([k])
@@ -40,7 +40,7 @@ RunScript(*) {
     while (script.Progress() <= 1)
     {
         ; Set focus to runelite
-        WinActivate "RuneLite - Lunas Butkus"
+        WinActivate "RuneLite - Cinnador"
         ;script.Call(nmz)
         script.Run()
         ;MyGui["MyProgress"].Value := currentLoop / totalLoops * 100

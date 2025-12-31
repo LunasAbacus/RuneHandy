@@ -38,7 +38,7 @@ ClickSlot(slotNumber, shift:=False) {
 DropInventory() {
     i := 1
     Send "{Shift Down}"
-    loop 8
+    loop 28
     {
         ClickSlot(i++)
     }
