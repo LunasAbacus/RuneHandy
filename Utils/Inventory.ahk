@@ -45,16 +45,26 @@ DropInventory() {
     Send "{Shift Up}"
 }
 
+DropInventoryKeepTools() {
+    i := 5
+    Send "{Shift Down}"
+    loop 24
+    {
+        ClickSlot(i++)
+    }
+    Send "{Shift Up}"
+}
+
 ; TODO Nate improve this to not use hardcoded?
-; client first position 870 , 345
+; client first position 575 , 230
 SlotPosition(slotNumber)
 {
     slotNumber--
 
     column := slotNumber // 4
     row := Mod(slotNumber, 4)
-    x := 870 + row * 60
-    y := 345 + column * 51
+    x := 575 + row * 45
+    y := 230 + column * 36
 
     return {x:x, y:y}
 }

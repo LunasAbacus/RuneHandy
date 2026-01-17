@@ -22,45 +22,115 @@ CoordMode "Mouse", "Client"   ; if you use this line in your scripts, uncomment 
 ;--------------------------------------------------------------------------------;
 ;*********************************************************************************
 
-MoveMouse(x, y, speed:= 0.6, randomOffset:= false, relative:= false)
+MoveMouse(x, y, speed:= 0.6, randomOffset:= false, radius:= 10)
 {
-    rxRan:= Random(0,7)  ; here you can randomize your destination coordinates
-    ryRan:= Random(0,7)  ; so you don't need to randomize them in your main script
 	if (randomOffset)
 	{
+		rxRan:= Random(0,radius)  ; here you can randomize your destination coordinates
+    	ryRan:= Random(0,radius)  ; so you don't need to randomize them in your main script
 		x:= x + rxRan         ; uncomment the beginning of these four lines
 		y:= y + ryRan         ; if you want random destinations
 	}
 
-    if(relative)
-	{
-        goRelative(x,y,speed)
-    }
-    else
-	{        
-        goStandard(x,y,speed)		
-    }
+	goStandard(x,y,speed)		
 }
+
 ;---------------------- no need to change anything below ------------------------;
 WindMouse(xs, ys, xe, ye, gravity, wind, minWait, maxWait, maxStep, targetArea, sleepsArray){
-windX:= 0, windY:= 0
-veloX:= 0, veloY:= 0
-newX:= Round(xs)
-newY:= Round(ys)
-waitDiff:= maxWait - minWait
-sqrt2:= Sqrt(2)
-sqrt3:= Sqrt(3)
-sqrt5:= Sqrt(5)
-dist:= Hypot(xe - xs, ye - ys)
-i:= 1
-stepVar:= maxStep
-Loop{
-	wind:= Min(wind, dist)
-	if(dist >= targetArea){
-		windX:= windX / sqrt3 + (random_ZeroToN(round(wind) * 2 + 1) - wind) / sqrt5
-		windY:= windY / sqrt3 + (random_ZeroToN(round(wind) * 2 + 1) - wind) / sqrt5
-		maxStep:= RandomWeight(stepVar/2, (stepVar+(stepVar/2))/2, stepVar)
-		}else{
+	windX:= 0, windY:= 0
+	veloX:= 0, veloY:= 0
+	newX:= Round(xs)
+	newY:= Round(ys)
+	waitDiff:= maxWait - minWait
+	sqrt2:= Sqrt(2)
+	sqrt3:= Sqrt(3)
+	sqrt5:= Sqrt(5)
+	dist:= Hypot(xe - xs, ye - ys)
+	i:= 1
+	stepVar:= maxStep
+	Loop{
+		wind:= Min(wind, dist)
+		if(dist >= targetArea) {
+			windX:= windX / sqrt3 + (random_ZeroToN(round(wind) * 2 + 1) - wind) / sqrt5
+			windY:= windY / sqrt3 + (random_ZeroToN(round(wind) * 2 + 1) - wind) / sqrt5
+			maxStep:= RandomWeight(stepVar/2, (stepVar+(stepVar/2))/2, stepVar)
+			}else{
+				windX:= windX / sqrt2
+				windY:= windY / sqrt2
+				if(maxStep < 3){
+					maxStep:= 1
+				}else{
+					maxStep:= maxStep / 3
+				}
+			}
+			veloX += windX
+			veloY += windY
+			veloX:= veloX + gravity * ( xe - xs ) / dist
+			veloY:= veloY + gravity * ( ye - ys ) / dist
+			if(Hypot(veloX, veloY) > maxStep){
+				randomDist:= maxStep / 2 + (Round(random_ZeroToN(maxStep)) / 2)
+				veloMag:= Hypot(veloX, veloY)
+				veloX:= ( veloX / veloMag ) * randomDist
+				veloY:= ( veloY / veloMag ) * randomDist
+			}
+			oldX:= Round(xs)
+			oldY:= Round(ys)
+			xs:= xs + veloX
+			ys:= ys + veloY
+			dist:= Hypot(xe - xs, ye - ys)
+			if(dist <= 1){
+				Break
+			}
+			newX:= Round(xs)
+			newY:= Round(ys)
+			if(oldX != newX) or (oldY != newY){
+				MouseMove(newX, newY)
+			}
+			step:= Hypot(xs - oldX, ys - oldY)
+			c:= sleepsArray.Length
+			if(i > c){
+				if (c==0)
+					lastSleeps:=1
+				else
+					lastSleeps:= Round(sleepsArray[c])
+				w := Random(lastSleeps, lastSleeps+1)
+				wait:= Max(Round(abs(w)),1)
+				Sleep(wait)
+			}else{
+				waitSleep:= Round(sleepsArray[i])
+				w := Random(waitSleep, waitSleep+1)
+				wait:= Max(Round(abs(w)),1)
+				Sleep(wait)
+				i++
+			}
+		}
+	endX:= Round(xe)
+	endY:= Round(ye)
+	if(endX != newX) or (endY != newY){
+		MouseMove(endX, endY)
+	}
+	i:= 1
+}
+
+WindMouse2(xs, ys, xe, ye, gravity, wind, minWait, maxWait, maxStep, targetArea){
+	windX:= 0, windY:= 0
+	veloX:= 0, veloY:= 0
+	newX:= Round(xs)
+	newY:= Round(ys)
+	waitDiff:= maxWait - minWait
+	sqrt2:= Sqrt(2)
+	sqrt3:= Sqrt(3)
+	sqrt5:= Sqrt(5)
+	dist:= Hypot(xe - xs, ye - ys)
+	newArr:=[]
+	stepVar:= maxStep
+	Loop {
+		wind:= Min(wind, dist)
+		if(dist >= targetArea) {
+			windX:= windX / sqrt3 + (random_ZeroToN(round(wind) * 2 + 1) - wind) / sqrt5
+			windY:= windY / sqrt3 + (random_ZeroToN(round(wind) * 2 + 1) - wind) / sqrt5
+			maxStep:= RandomWeight(stepVar/2, (stepVar+(stepVar/2))/2, stepVar)
+		} else {
 			windX:= windX / sqrt2
 			windY:= windY / sqrt2
 			if(maxStep < 3){
@@ -73,7 +143,7 @@ Loop{
 		veloY += windY
 		veloX:= veloX + gravity * ( xe - xs ) / dist
 		veloY:= veloY + gravity * ( ye - ys ) / dist
-		if(Hypot(veloX, veloY) > maxStep){
+		if(Hypot(veloX, veloY) > maxStep) {
 			randomDist:= maxStep / 2 + (Round(random_ZeroToN(maxStep)) / 2)
 			veloMag:= Hypot(veloX, veloY)
 			veloX:= ( veloX / veloMag ) * randomDist
@@ -90,104 +160,31 @@ Loop{
 		newX:= Round(xs)
 		newY:= Round(ys)
 		if(oldX != newX) or (oldY != newY){
-			MouseMove(newX, newY)
+			p:=0
 		}
 		step:= Hypot(xs - oldX, ys - oldY)
-		c:= sleepsArray.Length
-		if(i > c){
-			if (c==0)
-				lastSleeps:=1
-			else
-				lastSleeps:= Round(sleepsArray[c])
-			w := Random(lastSleeps, lastSleeps+1)
-			wait:= Max(Round(abs(w)),1)
-			Sleep(wait)
-		}else{
-			waitSleep:= Round(sleepsArray[i])
-			w := Random(waitSleep, waitSleep+1)
-			wait:= Max(Round(abs(w)),1)
-			Sleep(wait)
-			i++
-		}
-	}
-endX:= Round(xe)
-endY:= Round(ye)
-	if(endX != newX) or (endY != newY){
-		MouseMove(endX, endY)
-    }
-i:= 1
-}
-WindMouse2(xs, ys, xe, ye, gravity, wind, minWait, maxWait, maxStep, targetArea){
-windX:= 0, windY:= 0
-veloX:= 0, veloY:= 0
-newX:= Round(xs)
-newY:= Round(ys)
-waitDiff:= maxWait - minWait
-sqrt2:= Sqrt(2)
-sqrt3:= Sqrt(3)
-sqrt5:= Sqrt(5)
-dist:= Hypot(xe - xs, ye - ys)
-newArr:=[]
-stepVar:= maxStep
-Loop{
-    wind:= Min(wind, dist)
-		if(dist >= targetArea){
-			windX:= windX / sqrt3 + (random_ZeroToN(round(wind) * 2 + 1) - wind) / sqrt5
-			windY:= windY / sqrt3 + (random_ZeroToN(round(wind) * 2 + 1) - wind) / sqrt5
-			maxStep:= RandomWeight(stepVar/2, (stepVar+(stepVar/2))/2, stepVar)
-        }else{
-            windX:= windX / sqrt2
-            windY:= windY / sqrt2
-            if(maxStep < 3){
-                maxStep:= 1
-            }else{
-                maxStep:= maxStep / 3
-            }
-        }
-        veloX += windX
-        veloY += windY
-        veloX:= veloX + gravity * ( xe - xs ) / dist
-        veloY:= veloY + gravity * ( ye - ys ) / dist
-        if(Hypot(veloX, veloY) > maxStep){
-            randomDist:= maxStep / 2 + (Round(random_ZeroToN(maxStep)) / 2)
-            veloMag:= Hypot(veloX, veloY)
-            veloX:= ( veloX / veloMag ) * randomDist
-            veloY:= ( veloY / veloMag ) * randomDist
-        }
-        oldX:= Round(xs)
-        oldY:= Round(ys)
-        xs:= xs + veloX
-        ys:= ys + veloY
-        dist:= Hypot(xe - xs, ye - ys)
-		if(dist <= 1){
-			Break
-		}
-        newX:= Round(xs)
-        newY:= Round(ys)
-        if(oldX != newX) or (oldY != newY){
-            p:=0
-        }
-        step:= Hypot(xs - oldX, ys - oldY)
 		mean:= Round(waitDiff * (step / maxStep) + minWait)/7
 		wait:= Muller((mean)/2,(mean)/2.718281)
 		newArr.Push(wait)
-    }
-endX:= Round(xe)
-endY:= Round(ye)
-    if(endX != newX) or (endY != newY){
-        p:=0
-    }
-Return newArr
+	}
+	endX:= Round(xe)
+	endY:= Round(ye)
+	if(endX != newX) or (endY != newY){
+		p:=0
+	}
+	Return newArr
 }
+
 Hypot(dx, dy){
     return Sqrt(dx * dx + dy * dy)
 }
+
 random_ZeroToN(n){
 	out := Random(0, n)
 	return out
 }
-Sleep(s)
-{
+
+Sleep(s) {
     DllCall("QueryPerformanceFrequency", "Int64*", &freq := 0)
     DllCall("QueryPerformanceCounter", "Int64*", &CounterBefore := 0)
     counterAfter := 0
@@ -195,9 +192,10 @@ Sleep(s)
         DllCall("QueryPerformanceCounter", "Int64*", &counterAfter)
     return ((counterAfter - CounterBefore) / freq * 1000)
 }
-Muller(m,s){
+
+Muller(m,s) {
    Static i := 0, Y := 0
-   If (i := !i){
+   If (i := !i) {
       U := Random(0, 1.0)
       V := Random(0, 6.2831853071795862)
       U := sqrt(-2*ln(U))*s
@@ -207,54 +205,34 @@ Muller(m,s){
    Return Y
 }
 
-RandomWeight(min,target,max){
-Rmin := Random(min,target)
-Rmax := Random(target,max)
-weighted := Random(Rmin,Rmax)
-return weighted
+RandomWeight(min,target,max) {
+	Rmin := Random(min,target)
+	Rmax := Random(target,max)
+	weighted := Random(Rmin,Rmax)
+	return weighted
 }
-goStandard(x, y, speed){
-MouseGetPos(&xpos, &ypos)
-distance:= (Sqrt(Hypot(x-xpos,y-ypos)))*speed
-if distance = 0 ;there's nowhere to go!
-    return
-dynamicSpeed:= (1/distance)*60
-finalSpeed := Random(dynamicSpeed, dynamicSpeed + 0.8)
-stepArea:= Max(( finalSpeed / 2 + distance ) / 10, 0.1)
-newArr:=[]
-newArr:= WindMouse2(xpos, ypos, x, y, 10, 3, finalSpeed * 10, finalSpeed * 12, stepArea * 11, stepArea * 7)
-quicksort(newArr, "D")
-c:= newArr.Length
-g:= c/2
-	loop(g){
-	newArr.RemoveAt(c)
-	c--
+
+goStandard(x, y, speed) {
+	MouseGetPos(&xpos, &ypos)
+	distance:= (Sqrt(Hypot(x-xpos,y-ypos)))*speed
+	if distance = 0 ;there's nowhere to go!
+		return
+	dynamicSpeed:= (1/distance)*60
+	finalSpeed := Random(dynamicSpeed, dynamicSpeed + 0.8)
+	stepArea:= Max(( finalSpeed / 2 + distance ) / 10, 0.1)
+	newArr:=[]
+	newArr:= WindMouse2(xpos, ypos, x, y, 10, 3, finalSpeed * 10, finalSpeed * 12, stepArea * 11, stepArea * 7)
+	quicksort(newArr, "D")
+	c:= newArr.Length
+	g:= c/2
+	loop(g) {
+		newArr.RemoveAt(c)
+		c--
 	}
-newClone:=[]
-newClone:= newArr.Clone()
-quicksort(newClone, "A")
-newArr.Push(newClone*)
-WindMouse(xpos, ypos, x, y, 10, 3, finalSpeed * 10, finalSpeed * 12, stepArea * 11, stepArea * 7, newArr)
-newArr:=[]
-}
-goRelative(x, y, speed){
-MouseGetPos(&xpos, &ypos)
-distance:= (Sqrt(Hypot((xpos+abs(x))-xpos,(ypos+abs(y))-ypos)))*speed
-dynamicSpeed:= (1/distance)*60
-finalSpeed := Random(dynamicSpeed, dynamicSpeed + 0.8)
-stepArea:= Max(( finalSpeed / 2 + distance ) / 10, 0.1)
-newArr:=[]
-newArr:= WindMouse2(xpos, ypos, xpos+x, ypos+y, 10, 3, finalSpeed * 10, finalSpeed * 12, stepArea * 11, stepArea * 7)
-quicksort(newArr, "D")
-c:= newArr.Length
-g:= c/2
-	Loop(g){
-	newArr.RemoveAt(c)
-	c--
-	}
-newClone:=[]
-newClone:= newArr.Clone()
-quicksort(newClone, "A")
-WindMouse(xpos, ypos, xpos+x, ypos+y, 10, 3, finalSpeed * 10, finalSpeed * 12, stepArea * 11, stepArea * 7, newArr)
-newArr:=[]
+	newClone:=[]
+	newClone:= newArr.Clone()
+	quicksort(newClone, "A")
+	newArr.Push(newClone*)
+	WindMouse(xpos, ypos, x, y, 10, 3, finalSpeed * 10, finalSpeed * 12, stepArea * 11, stepArea * 7, newArr)
+	newArr:=[]
 }

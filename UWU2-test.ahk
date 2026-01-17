@@ -4,9 +4,6 @@
 
 CoordMode "Pixel", "Client"
 
-^Up:: ClickTile(Direction.North)
-^Down:: ClickTile(Direction.South)
-^Left:: ClickTile(Direction.West)
-^Right:: ClickTile(Direction.East)
+bla := 60 / 100
 
-^D:: DropInventory()
+^Up:: MsgBox("Answer: " . bla)
