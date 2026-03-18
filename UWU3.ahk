@@ -6,8 +6,9 @@
 #Include Utils/Input.ahk
 
 CoordMode "Pixel", "Client"
+CoordMode "Mouse", "Client" 
 
-endpoint := "http://127.0.0.1:8080/status"
+endpoint := "http://127.0.0.1:8081/status"
 
 ^Up::{
     while (true) {
@@ -21,21 +22,8 @@ endpoint := "http://127.0.0.1:8080/status"
     }
 }
 
-^D:: {
-    ; Safety Dump
-    WinActivate "RuneLite - Cinnador"
-    DropInventoryKeepTools()
-}
-
 ^Down::{
-    WinActivate "RuneLite - Cinnador"
-    try {
-        response := ReadStatus()
-        obj := JSON.parse(response)
-        HandleRuneLiteInstruction(obj)
-    } catch Error {
-        MsgBox("Failed to parse command")
-    }
+    Send "{F3}"
 }
 
 ReadStatus() {

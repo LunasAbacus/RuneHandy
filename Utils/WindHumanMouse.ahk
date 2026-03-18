@@ -26,8 +26,8 @@ MoveMouse(x, y, speed:= 0.6, randomOffset:= false, radius:= 10)
 {
 	if (randomOffset)
 	{
-		rxRan:= Random(0,radius)  ; here you can randomize your destination coordinates
-    	ryRan:= Random(0,radius)  ; so you don't need to randomize them in your main script
+		rxRan:= Random(-radius,radius)  ; here you can randomize your destination coordinates
+    	ryRan:= Random(-radius,radius)  ; so you don't need to randomize them in your main script
 		x:= x + rxRan         ; uncomment the beginning of these four lines
 		y:= y + ryRan         ; if you want random destinations
 	}
