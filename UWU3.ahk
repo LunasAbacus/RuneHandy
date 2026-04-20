@@ -26,6 +26,28 @@ endpoint := "http://127.0.0.1:8081/status"
     Send "{F3}"
 }
 
+^Right::{
+    Loop {
+        ; Wait between 5 and 10 minutes (in milliseconds)
+        waitTime := Random(300000, 600000)
+        Sleep waitTime
+
+        ; Get current mouse position
+        MouseGetPos &x, &y
+
+        ; Move slightly (1–2 pixels in a random direction)
+        offsetX := Random(-2, 2)
+        offsetY := Random(-2, 2)
+
+        ; Avoid no movement (0,0)
+        if (offsetX = 0 && offsetY = 0)
+            offsetX := 1
+
+        ;MouseMove x + offsetX, y + offsetY, 0
+        MoveMouse(x + offsetX, y + offsetY)
+    }
+}
+
 ReadStatus() {
     try {
         http := ComObject("WinHttp.WinHttpRequest.5.1")

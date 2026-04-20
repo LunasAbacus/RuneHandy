@@ -40,6 +40,8 @@ HandleRuneLiteInstruction(payload) {
 
 		if (type == 'CLICK') {
 			HandleClickCommand(parameters)
+		} else if (type == 'CLICKSTORM') { 
+			HandleClickStormCommand(parameters)
 		} else if (type == 'SLEEP') {
 			HandleSleepCommand(parameters)
 		} else if (type == 'DROP') {
@@ -135,7 +137,7 @@ HandleClickCommand(params) {
 	; Pull out relavent parameters (x, y, radius, minWait, maxWait, shift, right, speed)
 	x := GetOr(params, 'x', 0) * scale
 	y := GetOr(params, 'y', 0) * scale
-	radius := GetOr(params, 'radius', 7)
+	radius := GetOr(params, 'radius', 6)
 	isShift := GetOr(params, 'isShift', 0)
 	clickButton := GetOr(params, "clickButton", 0)
 	speed := GetOr(params, 'speed', 60)
@@ -160,9 +162,41 @@ HandleClickCommand(params) {
 		sleep 50
 		Send "{Shift Up}"
 	}
+}
 
-	; RestoreUserState(saved)
+HandleClickStormCommand(params) {
+	; Pull out relavent parameters (x, y, radius, minWait, maxWait, shift, right, speed)
+	x := GetOr(params, 'x', 0) * scale
+	y := GetOr(params, 'y', 0) * scale
+	count := GetOr(params, "count", 1)
+	radius := GetOr(params, 'radius', 6)
+	isShift := GetOr(params, 'isShift', 0)
+	clickButton := GetOr(params, "clickButton", 0)
+	speed := GetOr(params, 'speed', 60)
 
+
+	; Perform action
+	
+	; Shift modifier
+	if (isShift == 1) {
+		Send "{Shift Down}"
+		sleep 50
+	}
+
+	; Move mouse
+	MoveMouse(x, y, speed / 100, true, radius)
+
+	; Click
+	loop count {
+		Click clickButton
+		RandomSleep(150, 220)
+	}
+
+	; Lift shift
+	if (isShift == 1) {
+		sleep 50
+		Send "{Shift Up}"
+	}
 }
 
 HandleHoverCommand(params) {

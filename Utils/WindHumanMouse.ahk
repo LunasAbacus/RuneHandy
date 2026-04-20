@@ -22,7 +22,7 @@ CoordMode "Mouse", "Client"   ; if you use this line in your scripts, uncomment 
 ;--------------------------------------------------------------------------------;
 ;*********************************************************************************
 
-MoveMouse(x, y, speed:= 0.6, randomOffset:= false, radius:= 10)
+MoveMouse(x, y, speed:= 0.6, randomOffset:= false, radius:= 6)
 {
 	if (randomOffset)
 	{
